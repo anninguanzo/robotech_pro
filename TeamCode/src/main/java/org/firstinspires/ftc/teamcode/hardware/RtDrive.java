@@ -76,45 +76,37 @@ public class RtDrive {
     }
     public void moveRight(float parSpeed){
         if (hwExists()) {
-            m_dtLeftFrontMotor.setPower(parSpeed);
-            m_dtRightFrontMotor.setPower(-parSpeed);
-            m_dtLeftBackMotor.setPower(-parSpeed);
-            m_dtRightBackMotor.setPower(parSpeed);
+            drive(parSpeed,0,0,false);
         }
     }
 
     public void moveLeft(float parSpeed){
         if (hwExists()) {
-            m_telemetry.addLine("RtDrive::moveLeft MISSING IMPLEMENTATION");
-            m_telemetry.update();
+            drive(-parSpeed,0,0,false);
         }
     }
 
     public void moveForward(float parSpeed){
         if (hwExists()) {
-            m_telemetry.addLine("RtDrive::moveForward MISSING IMPLEMENTATION");
-            m_telemetry.update();
+            drive(0,-parSpeed,0,false);
         }
     }
 
     public void moveBackward(float parSpeed){
         if (hwExists()) {
-            m_telemetry.addLine("RtDrive::moveBackward MISSING IMPLEMENTATION");
-            m_telemetry.update();
+            drive(0,parSpeed,0,false);
         }
     }
 
     public void turnClockwise(long parRotationInDegrees){
         if (hwExists()) {
-            m_telemetry.addLine("RtDrive::turnClockwise MISSING IMPLEMENTATION");
-            m_telemetry.update();
+            drive(0,0,parRotationInDegrees,false);
         }
     }
 
     public void turnCounterClockwise(long parRotationInDegrees){
         if (hwExists()) {
-            m_telemetry.addLine("RtDrive::turnCounterClockwise MISSING IMPLEMENTATION");
-            m_telemetry.update();
+            drive(0,0,-parRotationInDegrees,false);
         }
     }
     private boolean hwExists() {
