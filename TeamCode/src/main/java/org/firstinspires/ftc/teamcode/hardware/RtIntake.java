@@ -16,18 +16,23 @@ public class RtIntake {
     }
 
     public void retrieveArtifact(){
-
-        double power = 1.0;
-        m_intakeMotor.setPower(power);
+        m_telemetry.addLine("RtIntake retrieve");
+        if ( hwExists()) {
+            double power = 1.0;
+            m_intakeMotor.setPower(power);
+        }
     }
 
     public void expelArtifact(){
-
-        double power = -1.0;
-        m_intakeMotor.setPower(power);
+        m_telemetry.addLine("RtIntake expel");
+        if ( hwExists()) {
+            double power = -1.0;
+            m_intakeMotor.setPower(power);
+        }
     }
 
     public void stop(){
+        m_telemetry.addLine("RtIntake stop");
         if ( hwExists()) {
             m_intakeMotor.setPower(0);
         }
