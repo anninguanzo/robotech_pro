@@ -22,25 +22,24 @@ public class Robotech_Teleop_v0 extends LinearOpMode {
         waitForStart();
 
         while(!isStopRequested()) {
-            m_robotech.rtDriveTrain.drive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, gamepad1.right_bumper);
-            m_robotech.rtWrist.wrist(gamepad2.y, gamepad2.a);
-            m_robotech.rtLift.lift(gamepad2.left_stick_y);
-            m_robotech.rtClaw.claw(gamepad2.right_bumper, gamepad2.left_bumper);
 
-            if (m_robotech.rtTouchSensor.isTouched())
-            {
-                m_robotech.rtLedLight.setColor(RtTypes.rtColor.GREEN);
+            //drive
+            m_robotech.rtDriveTrain.drive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, gamepad1.right_bumper);
+
+            //intake
+            if (gamepad2.a) {
+                m_robotech.rtIntake.retrieveArtifact();
             }
-            else
+            else if (gamepad2.b)
             {
-                RtTypes.rtColor detectedColor = m_robotech.rtColorSensor.getColor();
-                if ( detectedColor != RtTypes.rtColor.UNKNOWN ) {
-                    m_robotech.rtLedLight.setColor(detectedColor);
-                }
-                else {
-                    m_robotech.rtLedLight.setColor(RtTypes.rtColor.OFF);
-                }
+                m_robotech.rtIntake.expelArtifact();
             }
+            else if(gamepad2.y)
+            {
+                m_robotech.rtIntake.stop();
+            }
+
+            //launch
         }
     }
 }
