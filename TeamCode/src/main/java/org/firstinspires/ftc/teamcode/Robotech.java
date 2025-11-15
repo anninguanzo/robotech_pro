@@ -14,6 +14,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.hardware.RtClaw;
 import org.firstinspires.ftc.teamcode.hardware.RtDrive;
 import org.firstinspires.ftc.teamcode.hardware.RtIntake;
+import org.firstinspires.ftc.teamcode.hardware.RtLaunch;
 import org.firstinspires.ftc.teamcode.hardware.RtLed;
 import org.firstinspires.ftc.teamcode.hardware.RtLift;
 import org.firstinspires.ftc.teamcode.hardware.RtWrist;
@@ -59,6 +60,9 @@ public class Robotech {
     // intake motor
     private DcMotor m_intakeMotor;
 
+    // intake motor
+    private DcMotor m_launchMotor;
+
     // servos
     private Servo m_leftClawServo;
     private Servo m_rightClawServo;
@@ -86,6 +90,7 @@ public class Robotech {
     public RtClaw rtClaw;
     public RtLed rtLedLight;
     public RtIntake rtIntake;
+    public RtLaunch rtLaunch;
 
     // settings
     public static RtTypes.rtColor m_allianceColor = RtTypes.rtColor.RED;;
@@ -129,6 +134,7 @@ public class Robotech {
         m_rightWristServo     = m_hardwareMap.tryGet(Servo.class,            "rightWrist");
 
         m_intakeMotor         = m_hardwareMap.tryGet(DcMotor.class,          "intake");
+        m_launchMotor         = m_hardwareMap.tryGet(DcMotor.class,          "launcher");
     }
 
     private void configureRobotechDriveTrain()
@@ -156,6 +162,7 @@ public class Robotech {
         rtDriveTrain  = new RtDrive(m_dtLeftBackDcMotor, m_dtRightBackDcMotor,
                                     m_dtRightFrontDcMotor, m_dtLeftFrontDcMotor, m_telemetry);
         rtIntake      = new RtIntake(m_intakeMotor, m_telemetry);
+        rtLaunch      = new RtLaunch(m_launchMotor, m_telemetry);
         rtWrist       = new RtWrist(m_leftWristServo, m_rightWristServo, m_telemetry);
         rtLift        = new RtLift(m_leftLiftDcMotor, m_rightLiftDcMotor,
                                     m_top1DcMotor, m_top2DcMotor, m_telemetry );

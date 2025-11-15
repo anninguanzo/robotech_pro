@@ -39,7 +39,15 @@ public class Robotech_Teleop_v0 extends LinearOpMode {
                 m_robotech.rtIntake.stop();
             }
 
-            //launch
+            //launcher
+            if (gamepad2.right_bumper)
+            {
+                m_robotech.rtLaunch.launchArtifact();
+            }
+            else if (gamepad2.left_bumper)
+            {
+                m_robotech.rtLaunch.stop();
+            }
         }
     }
 }
