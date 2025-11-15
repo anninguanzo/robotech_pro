@@ -142,7 +142,7 @@ public class Robotech {
         if ( m_dtLeftBackDcMotor   != null && m_dtRightBackDcMotor != null &&
              m_dtRightFrontDcMotor != null && m_dtLeftFrontDcMotor != null )
         {
-            m_dtLeftFrontDcMotor.setDirection(DcMotorSimple.Direction.REVERSE);
+            //m_dtLeftFrontDcMotor.setDirection(DcMotorSimple.Direction.REVERSE);
             m_dtLeftBackDcMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         }
     }

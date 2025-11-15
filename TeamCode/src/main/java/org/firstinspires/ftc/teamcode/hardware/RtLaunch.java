@@ -18,7 +18,7 @@ public class RtLaunch {
     public void launchArtifact(){
         m_telemetry.addLine("RtLaunch launch");
         if (hwExists()) {
-            double power = 1.0;
+            double power = -1.0;
             m_launchMotor.setPower(power);
         }
     }
