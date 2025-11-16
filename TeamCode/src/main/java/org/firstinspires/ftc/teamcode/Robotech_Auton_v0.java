@@ -23,7 +23,7 @@ public class Robotech_Auton_v0 extends LinearOpMode {
 
         //run auton...
         while(!isStopRequested() && opModeIsActive()) {
-            m_robotech.rtDriveTrain.moveForward(0.1f);  //go to observation zone
+            m_robotech.rtDriveTrain.moveForward(0.67f);  //go to observation zone
         }
     }
 }

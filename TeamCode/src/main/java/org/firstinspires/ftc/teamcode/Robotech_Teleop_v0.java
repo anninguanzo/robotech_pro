@@ -24,7 +24,7 @@ public class Robotech_Teleop_v0 extends LinearOpMode {
         while(!isStopRequested()) {
 
             //drive
-            m_robotech.rtDriveTrain.drive(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, gamepad1.right_bumper);
+            m_robotech.rtDriveTrain.drive(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x, gamepad1.right_bumper);
 
             //intake
             if (gamepad2.a) {
