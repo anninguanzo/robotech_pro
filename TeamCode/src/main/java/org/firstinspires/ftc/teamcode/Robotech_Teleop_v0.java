@@ -15,6 +15,8 @@ public class Robotech_Teleop_v0 extends LinearOpMode {
 
     @Override
     public void runOpMode(){
+        Boolean isRobotCentric = true;
+
         //create all the robotech hardware instances and initialize
         m_robotech = new Robotech(hardwareMap, telemetry);
 
@@ -23,8 +25,17 @@ public class Robotech_Teleop_v0 extends LinearOpMode {
 
         while(!isStopRequested()) {
 
-            //drive
-            m_robotech.rtDriveTrain.drive(gamepad1.left_stick_x, -gamepad1.left_stick_y, gamepad1.right_stick_x, gamepad1.right_bumper);
+            //drive train
+            if (gamepad1.x){ //toggle between robot centric and field centric when x button is pushed
+                isRobotCentric = !isRobotCentric;
+            }
+            if (isRobotCentric) {
+                m_robotech.rtDriveTrain.driveRC(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, gamepad1.right_bumper);
+            }
+            else //isFieldCentric
+            {
+                m_robotech.rtDriveTrain.driveFC(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, gamepad1.options);
+            }
 
             //intake
             if (gamepad2.a) {

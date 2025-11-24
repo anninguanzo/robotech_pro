@@ -2,6 +2,7 @@ package org.firstinspires.ftc.teamcode;
 
 
 import com.qualcomm.hardware.rev.RevColorSensorV3;
+import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
@@ -60,7 +61,7 @@ public class Robotech {
     // intake motor
     private DcMotor m_intakeMotor;
 
-    // intake motor
+    // launch motor
     private DcMotor m_launchMotor;
 
     // servos
@@ -94,7 +95,7 @@ public class Robotech {
 
     // settings
     public static RtTypes.rtColor m_allianceColor = RtTypes.rtColor.RED;;
-    public static int m_initialPosition = 1;
+    public static RtTypes.rtInitPosition m_initialPosition = RtTypes.rtInitPosition.ACROSS_GOAL;
     public Robotech(HardwareMap parHardwareMap, Telemetry parTelemetry)
     {
         m_hardwareMap = parHardwareMap;
@@ -145,6 +146,13 @@ public class Robotech {
             //m_dtLeftFrontDcMotor.setDirection(DcMotorSimple.Direction.REVERSE);
             m_dtLeftBackDcMotor.setDirection(DcMotorSimple.Direction.REVERSE);
         }
+
+        //IMU config, see ftc website for instructions
+        IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
+                RevHubOrientationOnRobot.LogoFacingDirection.UP,
+                RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
+
+        m_imu.initialize(parameters);
     }
     private void createRobotech()
     {
@@ -160,7 +168,7 @@ public class Robotech {
 
         //hardware
         rtDriveTrain  = new RtDrive(m_dtLeftBackDcMotor, m_dtRightBackDcMotor,
-                                    m_dtRightFrontDcMotor, m_dtLeftFrontDcMotor, m_telemetry);
+                                    m_dtRightFrontDcMotor, m_dtLeftFrontDcMotor, m_telemetry, m_imu);
         rtIntake      = new RtIntake(m_intakeMotor, m_telemetry);
         rtLaunch      = new RtLaunch(m_launchMotor, m_telemetry);
         rtWrist       = new RtWrist(m_leftWristServo, m_rightWristServo, m_telemetry);
@@ -170,12 +178,9 @@ public class Robotech {
         rtLedLight    = new RtLed(m_ledServo, m_telemetry);
 
         //good-to-go
-        if (m_allianceColor == RtTypes.rtColor.RED){
-            m_telemetry.addData("Alliance Color = RED / Init Pos = ", "%d", m_initialPosition);
-        }
-        else {
-            m_telemetry.addData("Alliance Color = BLUE / Init Pos = ", "%d", m_initialPosition);
-        }
+        m_telemetry.addData("Alliance Color = %s / Init Pos = %s",
+                             RtTypes.getColorText(m_allianceColor),
+                             RtTypes.getInitPosText(m_initialPosition));
         rtLog.print("Robotech Hardware Initialized");
         rtSound.play("gold");
     }

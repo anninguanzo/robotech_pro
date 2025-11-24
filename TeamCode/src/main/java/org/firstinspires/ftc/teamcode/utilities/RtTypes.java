@@ -17,5 +17,26 @@ public class RtTypes {
         OFF,
         UNKNOWN
     }
-
+    public enum rtInitPosition {
+        UNKNOWN,
+        AT_GOAL,
+        ACROSS_GOAL
+    }
+    static public String getColorText(rtColor parColorEnum)
+    {
+        switch(parColorEnum){
+            case RED: return "RED";
+            case BLUE: return "BLUE";
+            default: return "UNKNOWN";
+        }
+    }
+    static public String getInitPosText(rtInitPosition parInitPosEnum)
+    {
+        switch(parInitPosEnum)
+        {
+            case AT_GOAL: return "AT GOAL";
+            case ACROSS_GOAL: return "ACROSS GOAL";
+            default: return "UNKNOWN";
+        }
+    }
 }

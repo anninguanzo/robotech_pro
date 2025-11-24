@@ -12,7 +12,7 @@ public class Selector extends LinearOpMode {
     public void runOpMode(){
 
         Robotech.m_allianceColor = RtTypes.rtColor.RED;
-        Robotech.m_initialPosition = 1;
+        Robotech.m_initialPosition = RtTypes.rtInitPosition.ACROSS_GOAL;
 
         //wait for operator to press start on driver hub
         waitForStart();
@@ -26,21 +26,22 @@ public class Selector extends LinearOpMode {
 
             if (gamepad1.dpad_up)
             {
-                Robotech.m_initialPosition = 1;
+                Robotech.m_initialPosition = RtTypes.rtInitPosition.AT_GOAL;
             }
             else if (gamepad1.dpad_down)
             {
-                Robotech.m_initialPosition = 2;
+                Robotech.m_initialPosition = RtTypes.rtInitPosition.ACROSS_GOAL;
             }
 
             if (Robotech.m_allianceColor == RtTypes.rtColor.RED){
                 gamepad1.setLedColor(255, 0 ,0, 100);
-                telemetry.addData("Alliance Color = RED / Init Pos = ", "%d", Robotech.m_initialPosition);
             }
             else {
                 gamepad1.setLedColor(0, 0, 255, 100);
-                telemetry.addData("Alliance Color = BLUE / Init Pos = ", "%d", Robotech.m_initialPosition);
             }
+            telemetry.addData("Alliance Color = %s / Init Pos = %s",
+                    RtTypes.getColorText(Robotech.m_allianceColor),
+                    RtTypes.getInitPosText(Robotech.m_initialPosition));
 
             telemetry.update();
         }
