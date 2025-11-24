@@ -82,7 +82,7 @@ public class RtColorSensor {
         {
             exists = false;
             m_telemetry.addLine("RtColorSensor HW NOT CONNECTED");
-            m_telemetry.update();
+            //m_telemetry.update();
         }
         return exists;
     }

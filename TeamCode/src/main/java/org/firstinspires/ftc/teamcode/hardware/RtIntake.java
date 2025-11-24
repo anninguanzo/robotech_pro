@@ -38,6 +38,21 @@ public class RtIntake {
         }
     }
 
+    public void intake (boolean parRetrieve, boolean parExpel, boolean parStop )
+    {
+        if (parRetrieve) {
+            retrieveArtifact();
+        }
+        else if (parExpel)
+        {
+            expelArtifact();
+        }
+        else if(parStop)
+        {
+            stop();
+        }
+    }
+
     private boolean hwExists() {
         boolean exists = true;
 
@@ -45,7 +60,7 @@ public class RtIntake {
         {
             exists = false;
             m_telemetry.addLine("RtIntake HW NOT CONNECTED");
-            m_telemetry.update();
+            //m_telemetry.update();
         }
         return exists;
     }

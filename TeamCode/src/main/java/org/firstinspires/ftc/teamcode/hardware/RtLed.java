@@ -64,7 +64,7 @@ public class RtLed {
         {
             exists = false;
             m_telemetry.addLine("RtLed HW NOT CONNECTED");
-            m_telemetry.update();
+            //m_telemetry.update();
         }
         return exists;
     }

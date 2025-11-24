@@ -198,12 +198,29 @@ public class Robotech {
 
     public void searchUntilColor(RtTypes.rtColor parColor)
     {
-        //move right until the sample color is detected
+        //move forward until the sample color is detected
         while(rtColorSensor.getColor() != parColor) {
-            rtDriveTrain.moveRight(RtTypes.RT_SLOW_SPEED); // implement movement pattern for search
+            rtTime.delayTime(1);
         }
+
+        //stop moving
+        rtDriveTrain.stop();
 
         //set light to red indicating detected
         rtLedLight.setColor(parColor);
+    }
+
+    public void searchUntilAprilTag()
+    {
+        //move forward until the april tag is detected
+        while ( !rtCamera.detectedAprilTag() ) {
+            rtTime.delayTime(1);
+        }
+
+        //set light to indicate detected
+        rtLedLight.setColor(RtTypes.rtColor.GREEN);
+        rtLog.print("AprilTag #", "%d %s",
+                     rtCamera.m_aprilTagId,
+                     rtCamera.m_aprilTagName);
     }
 }

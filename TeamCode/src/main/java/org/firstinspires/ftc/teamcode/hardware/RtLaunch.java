@@ -11,11 +11,11 @@ public class RtLaunch {
 
 
     public RtLaunch(DcMotor parLaunchMotor, Telemetry parTelemetry) {
-        m_launchMotor   = parLaunchMotor;
-        m_telemetry     = parTelemetry;
+        m_launchMotor = parLaunchMotor;
+        m_telemetry = parTelemetry;
     }
 
-    public void launchArtifact(){
+    public void launchArtifact() {
         m_telemetry.addLine("RtLaunch launch");
         if (hwExists()) {
             double power = -1.0;
@@ -23,13 +23,24 @@ public class RtLaunch {
         }
     }
 
-    public void stop(){
+    public void stop() {
         m_telemetry.addLine("RtLaunch stop");
-        if ( hwExists()) {
+        if (hwExists()) {
             m_launchMotor.setPower(0);
         }
     }
 
+    public void launch(boolean parLaunch, boolean parStop)
+    {
+        if(parLaunch)
+        {
+            launchArtifact();
+        }
+        else if(parStop)
+        {
+            stop();
+        }
+    }
     private boolean hwExists() {
         boolean exists = true;
 
@@ -37,7 +48,7 @@ public class RtLaunch {
         {
             exists = false;
             m_telemetry.addLine("RtLaunch HW NOT CONNECTED");
-            m_telemetry.update();
+            //m_telemetry.update();
         }
         return exists;
     }

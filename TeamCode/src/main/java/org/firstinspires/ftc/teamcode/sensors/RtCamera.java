@@ -211,7 +211,7 @@ public class RtCamera {
         {
             exists = false;
             m_telemetry.addLine("RtCamera HW NOT CONNECTED");
-            m_telemetry.update();
+            //m_telemetry.update();
         }
         return exists;
     }
