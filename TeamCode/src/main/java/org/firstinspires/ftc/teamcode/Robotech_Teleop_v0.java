@@ -41,16 +41,16 @@ public class Robotech_Teleop_v0 extends LinearOpMode {
             m_robotech.rtIntake.intake(gamepad2.a, gamepad2.b, gamepad2.y);
 
             //launcher
-            m_robotech.rtLaunch.launch(gamepad2.right_bumper, gamepad2.left_bumper);
+            m_robotech.rtLaunch.launch(gamepad2.right_bumper);
 
             //april tag detection
-            if (m_robotech.rtCamera.detectedAprilTag())
+            /*if (m_robotech.rtCamera.detectedAprilTag())
             {
                 m_robotech.rtLedLight.setColor(RtTypes.rtColor.GREEN);
                 m_robotech.rtLog.print("AprilTag #", "%d %s",
                         m_robotech.rtCamera.m_aprilTagId,
                         m_robotech.rtCamera.m_aprilTagName);
-            }
+            }*/
 
             telemetry.update();
         }
