@@ -1,18 +1,19 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
-import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
 
 public class RtLaunch {
     private Telemetry m_telemetry;
-    private DcMotor m_launchMotor1;
-    private DcMotor m_launchMotor2;
+    private DcMotorEx m_launchMotor1;
+    private DcMotorEx m_launchMotor2;
 
-    private Boolean m_launchToggle = false;
-
-    public RtLaunch(DcMotor parLaunchMotor1, DcMotor parLaunchMotor2, Telemetry parTelemetry) {
+    private boolean m_launchToggle = false;
+    final double LAUNCHER_TARGET_VELOCITY = 1125;
+    final double LAUNCHER_MIN_VELOCITY = 1075;
+    public RtLaunch(DcMotorEx parLaunchMotor1, DcMotorEx parLaunchMotor2, Telemetry parTelemetry) {
         m_launchMotor1 = parLaunchMotor1;
         m_launchMotor2 = parLaunchMotor2;
         m_telemetry = parTelemetry;
@@ -21,9 +22,8 @@ public class RtLaunch {
     public void launchArtifact() {
         m_telemetry.addLine("RtLaunch launch");
         if (hwExists()) {
-            double power = -1.0;
-            m_launchMotor1.setPower(power);
-            m_launchMotor2.setPower(power);
+            m_launchMotor1.setVelocity(-1*LAUNCHER_TARGET_VELOCITY);
+            m_launchMotor2.setVelocity(LAUNCHER_TARGET_VELOCITY);
         }
     }
 

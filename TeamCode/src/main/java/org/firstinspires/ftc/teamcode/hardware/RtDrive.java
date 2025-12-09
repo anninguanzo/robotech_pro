@@ -60,7 +60,6 @@ public class RtDrive {
 
         m_telemetry.addData("Botheading", "double", botHeading);
 
-
         // Rotate the movement direction counter to the bot's rotation
         double rotX = parX * Math.cos(-botHeading) - parY * Math.sin(-botHeading);
         double rotY = parX * Math.sin(-botHeading) + parY * Math.cos(-botHeading);

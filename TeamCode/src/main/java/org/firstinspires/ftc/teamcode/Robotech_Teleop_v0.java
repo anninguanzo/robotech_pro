@@ -15,7 +15,8 @@ public class Robotech_Teleop_v0 extends LinearOpMode {
 
     @Override
     public void runOpMode(){
-        Boolean isRobotCentric = true;
+        boolean lastRobotCentricToggleValue = false;
+        boolean isRobotCentric = true;
 
         //create all the robotech hardware instances and initialize
         m_robotech = new Robotech(hardwareMap, telemetry);
@@ -25,23 +26,38 @@ public class Robotech_Teleop_v0 extends LinearOpMode {
 
         while(!isStopRequested()) {
 
-            //drive train
-            if (gamepad1.x){ //toggle between robot centric and field centric when x button is pushed
+            //toggle between robot centric and field centric when x button is pushed
+            boolean fieldCentricToggle = gamepad1.x;
+            if (!lastRobotCentricToggleValue && fieldCentricToggle){
                 isRobotCentric = !isRobotCentric;
             }
+            lastRobotCentricToggleValue = fieldCentricToggle;
+
+            //drive train
+            float xDirection = gamepad1.left_stick_x;
+            float yDirection = gamepad1.left_stick_y;
+            float rotation   = gamepad1.right_stick_x;
             if (isRobotCentric) {
-                m_robotech.rtDriveTrain.driveRC(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, gamepad1.right_bumper);
+                telemetry.addLine("DT Robot Centric");
+                boolean boostSpeed = gamepad1.right_bumper;
+                m_robotech.rtDriveTrain.driveRC(xDirection, yDirection, rotation, boostSpeed);
             }
             else //isFieldCentric
             {
-                m_robotech.rtDriveTrain.driveFC(gamepad1.left_stick_x, gamepad1.left_stick_y, gamepad1.right_stick_x, gamepad1.options);
+                telemetry.addLine("DT Field Centric");
+                boolean reset = gamepad1.options;
+                m_robotech.rtDriveTrain.driveFC(xDirection, yDirection, rotation, reset);
             }
 
             //intake
-            m_robotech.rtIntake.intake(gamepad2.a, gamepad2.b, gamepad2.y);
+            boolean retrieveToggle = gamepad2.a;
+            boolean expelToggle    = gamepad2.b;
+            boolean midtakeToggle  = gamepad2.y;
+            m_robotech.rtIntake.intake(retrieveToggle, expelToggle, midtakeToggle);
 
             //launcher
-            m_robotech.rtLaunch.launch(gamepad2.right_bumper);
+            boolean launcherToggle = gamepad2.right_bumper;
+            m_robotech.rtLaunch.launch(launcherToggle);
 
             //april tag detection
             /*if (m_robotech.rtCamera.detectedAprilTag())
@@ -50,7 +66,12 @@ public class Robotech_Teleop_v0 extends LinearOpMode {
                 m_robotech.rtLog.print("AprilTag #", "%d %s",
                         m_robotech.rtCamera.m_aprilTagId,
                         m_robotech.rtCamera.m_aprilTagName);
-            }*/
+            }
+            else
+            {
+              m_robotech.rtLedLight.setColor(RtTypes.rtColor.OFF);
+            }
+            */
 
             telemetry.update();
         }

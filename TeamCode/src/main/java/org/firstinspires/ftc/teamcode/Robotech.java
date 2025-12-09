@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode;
 import com.qualcomm.hardware.rev.RevColorSensorV3;
 import com.qualcomm.hardware.rev.RevHubOrientationOnRobot;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.IMU;
@@ -63,8 +64,8 @@ public class Robotech {
     private DcMotor m_intakeMotor;
 
     // launch motor
-    private DcMotor m_launchMotor1;
-    private DcMotor m_launchMotor2;
+    private DcMotorEx m_launchMotor1;
+    private DcMotorEx m_launchMotor2;
 
     // servos
     private Servo m_leftClawServo;
@@ -138,9 +139,9 @@ public class Robotech {
         m_rightWristServo     = m_hardwareMap.tryGet(Servo.class,            "rightWrist");
 
         m_intakeMotor         = m_hardwareMap.tryGet(DcMotor.class,          "intake");
-        m_midtakeServo        = m_hardwareMap.tryGet(CRServo.class,          "midTake");
-        m_launchMotor1        = m_hardwareMap.tryGet(DcMotor.class,          "launcher1");
-        m_launchMotor2        = m_hardwareMap.tryGet(DcMotor.class,          "launcher2");
+        m_midtakeServo        = m_hardwareMap.tryGet(CRServo.class,          "midtake");
+        m_launchMotor1        = m_hardwareMap.tryGet(DcMotorEx.class,        "launcher1");
+        m_launchMotor2        = m_hardwareMap.tryGet(DcMotorEx.class,        "launcher2");
     }
 
     private void configureRobotechDriveTrain()
@@ -183,9 +184,10 @@ public class Robotech {
         rtLedLight    = new RtLed(m_ledServo, m_telemetry);
 
         //good-to-go
-        m_telemetry.addData("Alliance Color = %s / Init Pos = %s",
+        m_telemetry.addData( "","Alliance Color = %s / Init Pos = %s",
                              RtTypes.getColorText(m_allianceColor),
                              RtTypes.getInitPosText(m_initialPosition));
+
         rtLog.print("Robotech Hardware Initialized");
         rtSound.play("gold");
     }

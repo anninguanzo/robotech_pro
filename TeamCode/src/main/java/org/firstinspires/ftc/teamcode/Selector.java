@@ -39,7 +39,7 @@ public class Selector extends LinearOpMode {
             else {
                 gamepad1.setLedColor(0, 0, 255, 100);
             }
-            telemetry.addData("Alliance Color = %s / Init Pos = %s",
+            telemetry.addData("","Alliance Color = %s / Init Pos = %s",
                     RtTypes.getColorText(Robotech.m_allianceColor),
                     RtTypes.getInitPosText(Robotech.m_initialPosition));
 

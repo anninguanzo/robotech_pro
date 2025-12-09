@@ -11,9 +11,13 @@ public class RtIntake {
     private DcMotor m_intakeMotor;
     private CRServo m_midtakeServo;
 
-    private Boolean m_intakeRetrieve = false;
-    private Boolean m_intakeExpel = false;
-    private Boolean m_midtakeOn = false;
+    private boolean m_intakeRetrieve = false;
+    private boolean m_intakeExpel = false;
+    private boolean m_midtakeOn = false;
+
+    private boolean m_lastIntakeRetrieveToggle = false;
+    private boolean m_lastIntakeExpelToggle = false;
+    private boolean m_lastMidtakeOnToggle = false;
     public RtIntake(DcMotor parIntakeMotor, CRServo parMidtakeServo, Telemetry parTelemetry) {
         m_intakeMotor   = parIntakeMotor;
         m_midtakeServo  = parMidtakeServo;
@@ -43,55 +47,73 @@ public class RtIntake {
         }
     }
 
-    public void runMidtake(Boolean parOn){
-        m_telemetry.addLine("RtIntake run midtake");
+    public void runMidtake(boolean parOn){
+        m_telemetry.addData("RtIntake run midtake On=", parOn);
         if (hwExists()) {
-            double power = 1.0;
-            if(parOn == false)
+            double power = -1.0;
+            if(!parOn)
             {
                 power = 0;
             }
-            m_midtakeServo.setPower(power);
         }
     }
 
     public void intake (boolean parRetrieveToggle, boolean parExpelToggle, boolean parMidtakeToggle )
     {
         //apply toggles
-        if (parRetrieveToggle) {
+        if (!m_lastIntakeRetrieveToggle && parRetrieveToggle) {
             m_intakeRetrieve = !m_intakeRetrieve;
+            if (m_intakeExpel)
+            {
+                m_intakeExpel = false; //can't have both on
+            }
         }
-        if (parExpelToggle) {
+        m_lastIntakeRetrieveToggle = parRetrieveToggle;
+
+        if (!m_lastIntakeExpelToggle && parExpelToggle) {
             m_intakeExpel = !m_intakeExpel;
+            if (m_intakeRetrieve)
+            {
+                m_intakeRetrieve = false; //can't have both on
+            }
         }
-        if (parMidtakeToggle) {
+        m_lastIntakeExpelToggle = parExpelToggle;
+
+        if (!m_lastMidtakeOnToggle && parMidtakeToggle) {
             m_midtakeOn = !m_midtakeOn;
         }
+        m_lastMidtakeOnToggle = parMidtakeToggle;
 
         //take action
-        if (parRetrieveToggle == true || parExpelToggle == true) {
-            if (m_intakeRetrieve == false && m_intakeExpel == false) {
-                stop();
-            }
+        runMidtake(m_midtakeOn);
+
+        if (!m_intakeRetrieve && !m_intakeExpel) {
+            stop();
+        }
+        else {
             if (m_intakeRetrieve) {
                 retrieveArtifact();
-            } else if (m_intakeExpel) {
+            }
+            if (m_intakeExpel) {
                 expelArtifact();
             }
-        }
-        if (parMidtakeToggle == true)
-        {
-            runMidtake(m_midtakeOn);
         }
     }
 
     private boolean hwExists() {
         boolean exists = true;
 
-        if (m_intakeMotor == null || m_midtakeServo == null)
+        if (m_intakeMotor == null)
         {
             exists = false;
-            m_telemetry.addLine("RtIntake HW NOT CONNECTED");
+            m_telemetry.addLine("RtIntake Intake HW NOT CONNECTED");
+            //m_telemetry.update();
+        }
+
+        if (m_midtakeServo == null)
+        {
+            exists = false;
+            m_telemetry.addLine("RtIntake Midtake HW NOT CONNECTED");
             //m_telemetry.update();
         }
         return exists;
