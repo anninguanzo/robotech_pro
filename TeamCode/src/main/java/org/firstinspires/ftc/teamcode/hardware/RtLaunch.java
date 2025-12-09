@@ -11,6 +11,7 @@ public class RtLaunch {
     private DcMotorEx m_launchMotor2;
 
     private boolean m_launchToggle = false;
+    private boolean m_lastLaunchToggle = false;
     final double LAUNCHER_TARGET_VELOCITY = 1125;
     final double LAUNCHER_MIN_VELOCITY = 1075;
     public RtLaunch(DcMotorEx parLaunchMotor1, DcMotorEx parLaunchMotor2, Telemetry parTelemetry) {
@@ -37,14 +38,17 @@ public class RtLaunch {
 
     public void launch(boolean parLaunchToggle)
     {
-        if (parLaunchToggle) {
+        //apply toggle
+        if (!m_lastLaunchToggle && parLaunchToggle) {
             m_launchToggle = !m_launchToggle;
+        }
+        m_lastLaunchToggle = parLaunchToggle;
 
-            if (m_launchToggle) {
-                launchArtifact();
-            } else {
-                stop();
-            }
+        //take action
+        if (m_launchToggle) {
+            launchArtifact();
+        } else {
+            stop();
         }
     }
     private boolean hwExists() {
