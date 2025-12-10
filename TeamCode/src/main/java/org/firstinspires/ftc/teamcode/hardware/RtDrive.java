@@ -70,10 +70,14 @@ public class RtDrive {
         // This ensures all the powers maintain the same ratio,
         // but only if at least one is out of the range [-1, 1]
         double denominator = Math.max(Math.abs(rotY) + Math.abs(rotX) + Math.abs(parRx), 1);
-        double frontLeftPower = (rotY - rotX - parRx) / denominator;
-        double backLeftPower = (rotY + rotX - parRx) / denominator;
-        double frontRightPower = (rotY + rotX + parRx) / denominator;
-        double backRightPower = (rotY - rotX + parRx) / denominator;
+//        double frontLeftPower = (rotY - rotX - parRx) / denominator;
+//        double backLeftPower = (rotY + rotX - parRx) / denominator;
+//        double frontRightPower = (rotY + rotX + parRx) / denominator;
+//        double backRightPower = (rotY - rotX + parRx) / denominator;
+        double frontLeftPower = (rotY + rotX + parRx) / denominator;
+        double backLeftPower = (rotY - rotX + parRx) / denominator; 
+        double frontRightPower = (rotY - rotX - parRx) / denominator;
+        double backRightPower = (rotY + rotX - parRx) / denominator;
         // we changed the positive to negative. Wheel position is different than GM 0
 
         if (hwExists()) {

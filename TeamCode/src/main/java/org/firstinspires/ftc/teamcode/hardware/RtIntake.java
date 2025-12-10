@@ -55,7 +55,9 @@ public class RtIntake {
             {
                 power = 0;
             }
+            m_midtakeServo.setPower(power);
         }
+
     }
 
     public void intake (boolean parRetrieveToggle, boolean parExpelToggle, boolean parMidtakeToggle )

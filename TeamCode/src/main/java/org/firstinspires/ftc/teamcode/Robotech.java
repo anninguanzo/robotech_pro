@@ -155,8 +155,8 @@ public class Robotech {
 
         //IMU config, see ftc website for instructions
         IMU.Parameters parameters = new IMU.Parameters(new RevHubOrientationOnRobot(
-                RevHubOrientationOnRobot.LogoFacingDirection.UP,
-                RevHubOrientationOnRobot.UsbFacingDirection.LEFT));
+                RevHubOrientationOnRobot.LogoFacingDirection.LEFT,
+                RevHubOrientationOnRobot.UsbFacingDirection.UP));
 
         m_imu.initialize(parameters);
     }
