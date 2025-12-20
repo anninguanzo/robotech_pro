@@ -9,7 +9,8 @@ import org.firstinspires.ftc.robotcore.external.Telemetry;
 public class RtIntake {
     private Telemetry m_telemetry;
     private DcMotor m_intakeMotor;
-    private CRServo m_midtakeServo;
+    private CRServo m_midtakeServo1;
+    private CRServo m_midtakeServo2;
 
     private boolean m_intakeRetrieve = false;
     private boolean m_intakeExpel = false;
@@ -18,9 +19,10 @@ public class RtIntake {
     private boolean m_lastIntakeRetrieveToggle = false;
     private boolean m_lastIntakeExpelToggle = false;
     private boolean m_lastMidtakeOnToggle = false;
-    public RtIntake(DcMotor parIntakeMotor, CRServo parMidtakeServo, Telemetry parTelemetry) {
+    public RtIntake(DcMotor parIntakeMotor, CRServo parMidtakeServo1, CRServo parMidtakeServo2, Telemetry parTelemetry) {
         m_intakeMotor   = parIntakeMotor;
-        m_midtakeServo  = parMidtakeServo;
+        m_midtakeServo1 = parMidtakeServo1;
+        m_midtakeServo2 = parMidtakeServo2;
         m_telemetry     = parTelemetry;
     }
 
@@ -55,7 +57,8 @@ public class RtIntake {
             {
                 power = 0;
             }
-            m_midtakeServo.setPower(power);
+            m_midtakeServo1.setPower(power);
+            m_midtakeServo2.setPower(power);
         }
 
     }
@@ -112,10 +115,17 @@ public class RtIntake {
             //m_telemetry.update();
         }
 
-        if (m_midtakeServo == null)
+        if (m_midtakeServo1 == null)
         {
             exists = false;
-            m_telemetry.addLine("RtIntake Midtake HW NOT CONNECTED");
+            m_telemetry.addLine("RtIntake Midtake1 HW NOT CONNECTED");
+            //m_telemetry.update();
+        }
+
+        if (m_midtakeServo2 == null)
+        {
+            exists = false;
+            m_telemetry.addLine("RtIntake Midtake2 HW NOT CONNECTED");
             //m_telemetry.update();
         }
         return exists;

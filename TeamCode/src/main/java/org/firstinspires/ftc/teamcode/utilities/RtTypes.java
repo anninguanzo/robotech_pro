@@ -14,6 +14,8 @@ public class RtTypes {
         BLUE,
         YELLOW,
         GREEN,
+        VIOLET,
+        AZURE,
         OFF,
         UNKNOWN
     }

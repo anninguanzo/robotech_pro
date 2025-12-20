@@ -72,8 +72,8 @@ public class Robotech {
     private Servo m_rightClawServo;
     private Servo m_leftWristServo;
     private Servo m_rightWristServo;
-    private CRServo m_midtakeServo;
-
+    private CRServo m_midtakeServo1;
+    private CRServo m_midtakeServo2;
     //==========================================================
     // public attributes - caller uses these
     //==========================================================
@@ -98,7 +98,7 @@ public class Robotech {
     public RtLaunch rtLaunch;
 
     // settings
-    public static RtTypes.rtColor m_allianceColor = RtTypes.rtColor.RED;;
+    public static RtTypes.rtColor m_allianceColor = RtTypes.rtColor.RED;
     public static RtTypes.rtInitPosition m_initialPosition = RtTypes.rtInitPosition.ACROSS_GOAL;
     public Robotech(HardwareMap parHardwareMap, Telemetry parTelemetry)
     {
@@ -139,7 +139,9 @@ public class Robotech {
         m_rightWristServo     = m_hardwareMap.tryGet(Servo.class,            "rightWrist");
 
         m_intakeMotor         = m_hardwareMap.tryGet(DcMotor.class,          "intake");
-        m_midtakeServo        = m_hardwareMap.tryGet(CRServo.class,          "midtake");
+        m_midtakeServo1        = m_hardwareMap.tryGet(CRServo.class,          "midtake1");
+        m_midtakeServo2        = m_hardwareMap.tryGet(CRServo.class,          "midtake2");
+
         m_launchMotor1        = m_hardwareMap.tryGet(DcMotorEx.class,        "launcher1");
         m_launchMotor2        = m_hardwareMap.tryGet(DcMotorEx.class,        "launcher2");
     }
@@ -175,7 +177,7 @@ public class Robotech {
         //hardware
         rtDriveTrain  = new RtDrive(m_dtLeftBackDcMotor, m_dtRightBackDcMotor,
                                     m_dtRightFrontDcMotor, m_dtLeftFrontDcMotor, m_telemetry, m_imu);
-        rtIntake      = new RtIntake(m_intakeMotor, m_midtakeServo, m_telemetry);
+        rtIntake      = new RtIntake(m_intakeMotor, m_midtakeServo1, m_midtakeServo2, m_telemetry);
         rtLaunch      = new RtLaunch(m_launchMotor1, m_launchMotor2, m_telemetry);
         rtWrist       = new RtWrist(m_leftWristServo, m_rightWristServo, m_telemetry);
         rtLift        = new RtLift(m_leftLiftDcMotor, m_rightLiftDcMotor,

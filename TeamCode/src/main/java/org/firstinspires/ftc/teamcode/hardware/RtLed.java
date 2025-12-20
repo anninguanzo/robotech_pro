@@ -52,6 +52,12 @@ public class RtLed {
             case GREEN:
                 setColor("green");
                 break;
+            case VIOLET:
+                setColor("violet");
+                break;
+            case AZURE:
+                setColor("azure");
+                break;
             default:
                 setColor("off");
                 break;

@@ -1,6 +1,10 @@
 package org.firstinspires.ftc.teamcode.hardware;
 
+import static com.qualcomm.robotcore.hardware.DcMotor.ZeroPowerBehavior.BRAKE;
+
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.PIDFCoefficients;
 
 import org.firstinspires.ftc.robotcore.external.Telemetry;
 
@@ -18,6 +22,13 @@ public class RtLaunch {
         m_launchMotor1 = parLaunchMotor1;
         m_launchMotor2 = parLaunchMotor2;
         m_telemetry = parTelemetry;
+
+        m_launchMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        m_launchMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        m_launchMotor1.setZeroPowerBehavior(BRAKE);
+        m_launchMotor2.setZeroPowerBehavior(BRAKE);
+        m_launchMotor1.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(300, 0, 0, 10));
+        m_launchMotor2.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(300, 0, 0, 10));
     }
 
     public void launchArtifact() {
@@ -54,10 +65,16 @@ public class RtLaunch {
     private boolean hwExists() {
         boolean exists = true;
 
-        if (m_launchMotor1 == null || m_launchMotor2 == null)
+        if (m_launchMotor1 == null )
         {
             exists = false;
-            m_telemetry.addLine("RtLaunch HW NOT CONNECTED");
+            m_telemetry.addLine("RtLaunch motor1 HW NOT CONNECTED");
+            //m_telemetry.update();
+        }
+        if (m_launchMotor2 == null)
+        {
+            exists = false;
+            m_telemetry.addLine("RtLaunch motor2 HW NOT CONNECTED");
             //m_telemetry.update();
         }
         return exists;
