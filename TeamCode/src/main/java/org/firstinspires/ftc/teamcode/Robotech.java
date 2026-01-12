@@ -191,6 +191,7 @@ public class Robotech {
                              RtTypes.getInitPosText(m_initialPosition));
 
         rtLog.print("Robotech Hardware Initialized");
+        rtLedLight.setColor(RtTypes.rtColor.VIOLET);
         rtSound.play("gold");
     }
 

@@ -26,6 +26,7 @@ public class Robotech_Teleop_v0 extends LinearOpMode {
 
         while(!isStopRequested()) {
 
+            m_robotech.rtLedLight.setColor(RtTypes.rtColor.AZURE);
             //toggle between robot centric and field centric when x button is pushed
             boolean fieldCentricToggle = gamepad1.x;
             if (!lastRobotCentricToggleValue && fieldCentricToggle){

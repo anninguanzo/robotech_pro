@@ -23,19 +23,21 @@ public class RtLaunch {
         m_launchMotor2 = parLaunchMotor2;
         m_telemetry = parTelemetry;
 
-        m_launchMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        m_launchMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        m_launchMotor1.setZeroPowerBehavior(BRAKE);
-        m_launchMotor2.setZeroPowerBehavior(BRAKE);
-        m_launchMotor1.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(300, 0, 0, 10));
-        m_launchMotor2.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(300, 0, 0, 10));
+        if (hwExists()) {
+            m_launchMotor1.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            m_launchMotor2.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+            m_launchMotor1.setZeroPowerBehavior(BRAKE);
+            m_launchMotor2.setZeroPowerBehavior(BRAKE);
+            m_launchMotor1.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(300, 0, 0, 10));
+            m_launchMotor2.setPIDFCoefficients(DcMotor.RunMode.RUN_USING_ENCODER, new PIDFCoefficients(300, 0, 0, 10));
+        }
     }
 
     public void launchArtifact() {
         m_telemetry.addLine("RtLaunch launch");
         if (hwExists()) {
-            m_launchMotor1.setVelocity(-1*LAUNCHER_TARGET_VELOCITY);
-            m_launchMotor2.setVelocity(LAUNCHER_TARGET_VELOCITY);
+            m_launchMotor1.setVelocity(LAUNCHER_TARGET_VELOCITY);
+            m_launchMotor2.setVelocity(-1*LAUNCHER_TARGET_VELOCITY);
         }
     }
 

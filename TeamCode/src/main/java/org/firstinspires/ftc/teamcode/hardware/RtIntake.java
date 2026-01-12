@@ -58,7 +58,7 @@ public class RtIntake {
                 power = 0;
             }
             m_midtakeServo1.setPower(power);
-            m_midtakeServo2.setPower(power);
+            m_midtakeServo2.setPower(-power);
         }
 
     }
